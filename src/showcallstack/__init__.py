@@ -5,14 +5,25 @@ Shows a simplified view of the call stack."""
 
 __version__ = '0.3.0'
 
-import traceback, inspect, pprint
+import traceback, inspect
+from .ShowCallStack import ShowCallStack
 
+# - - - - - - - - - - - - - - - - - -
 
 def showcallstack():
+    """
+    Print call stack from `getcallstack()`.
+    """
     print('\n'.join(getcallstack()))
 
 
-def getcallstack():
+def getcallstack() -> list[str]:
+    """
+    Get call stack.
+
+    Returns:
+        list[str]: List of string outputs describing callstack.
+    """
     outputStrings = []
 
     tracebackInfo = list(reversed(traceback.extract_stack()[:-2]))
