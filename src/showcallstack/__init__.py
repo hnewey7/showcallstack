@@ -6,7 +6,7 @@ Shows a simplified view of the call stack."""
 __version__ = '0.3.0'
 
 import traceback, inspect
-from .ShowCallStack import ShowCallStack
+from .__main__ import get_all_frames, get_traceback_info, display_call_stack
 
 # - - - - - - - - - - - - - - - - - -
 
