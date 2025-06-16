@@ -11,12 +11,12 @@ def test_default_get_traceback_info():
     Test function `get_traceback_info`.
     """
     # Get reference traceback info.
-    reference_traceback_info = get_traceback_info(0)
+    reference_traceback_info = get_traceback_info()
     
     # Defining test function.
     def a():
         # Get traceback.
-        traceback_info = get_traceback_info(0)
+        traceback_info = get_traceback_info()
         assert len(traceback_info) == len(reference_traceback_info) + 1
     a()
 
