@@ -2,14 +2,14 @@
 
 Shows a simplified view of the call stack.
 
-This module is similar to Python's built-in `traceback` and `inspect` modules, but is easier to use and displays more simple output. This module is useful for demonstrating what the call stack looks like during recursive function calls. Simply add a `from showcallstack import showCallStack` line and then call `showCallStack()` from wherever you wish to see the state of the call stack and the local variables in each call frame.
+This module is similar to Python's built-in `traceback` and `inspect` modules, but is easier to use and displays more simple output. This module is useful for demonstrating what the call stack looks like during recursive function calls. Simply add a `from showcallstack import display_call_stack` line and then call `display_call_stack()` from wherever you wish to see the state of the call stack and the local variables in each call frame.
 
 Example Usage
 =============
 
 This program...
 
-    from showcallstack import showcallstack
+    from showcallstack import display_call_stack
 
     def a():
         varA = 42
@@ -21,7 +21,7 @@ This program...
 
     def c():
         varC = 99
-        showcallstack()
+        display_call_stack()
 
     spam = 'SPAM!
     a()
@@ -43,10 +43,10 @@ This program...
 
 This recursive factorial program...
 
-    from showcallstack import showcallstack
+    from showcallstack import display_call_stack
 
     def factorial(num):
-        showcallstack()
+        display_call_stack()
         if num == 1:
             return 1
         else:
@@ -104,7 +104,7 @@ This recursive factorial program...
     Global variables:
       No global variables.
 
-You can also call the `showcallstack.getcallstack()` function to get this output as a list of strings.
+You can also call the `showcallstack.get_traceback_info()` to get the current traceback info or the `showcallstack.get_all_frames` to get all the current frames on the stack.
 
 Support
 -------
