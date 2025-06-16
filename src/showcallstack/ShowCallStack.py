@@ -6,6 +6,7 @@ Created on Sunday 15th June 2025.
 
 """
 import traceback
+import inspect
 
 # - - - - - - - - - - - - - - - - - - - - -
 
@@ -14,7 +15,6 @@ class ShowCallStack:
         """
         Class for extracting callstack, and displaying results.
         """
-        self.traceback_info = []
 
     def get_traceback_info(self,exclude_offset:int=2) -> list:
         """
@@ -32,23 +32,47 @@ class ShowCallStack:
 
         # Extract callstack.
         if exclude_offset != 0:
-            self.traceback_info = list(reversed(traceback.extract_stack()[:-exclude_offset]))
+            traceback_info = list(reversed(traceback.extract_stack()[:-exclude_offset]))
         else:
-            self.traceback_info = list(reversed(traceback.extract_stack()))
+            traceback_info = list(reversed(traceback.extract_stack()))
         
-        return self.traceback_info
+        return traceback_info
 
+    def get_all_frames(self):
+        """
+        Get all frames.
+
+        Returns:
+            list[frame]: List of frames.
+        """
+        # Creating list of frames.
+        frames = []
+
+        # Initial previous frame (excludes call to `get_all_frames`).
+        initial_frame = inspect.currentframe().f_back
+
+        # Get previous frame.
+        previous_frame = initial_frame.f_back
+
+        # Add all previous frames to list of frames.
+        while previous_frame is not None:
+            frames.append(previous_frame)
+            previous_frame = previous_frame.f_back
+        
+        return frames
+
+    
 # - - - - - - - - - - - - - - - - - - - - -
 
 if __name__ == "__main__":
     # Show call stack.
     global call_stack
     call_stack = ShowCallStack()
-    call_stack.get_traceback_info(0)
 
     # Define test func.
     def a():
-        call_stack.get_traceback_info(0)
+        call_stack.get_all_frames()
+        print(call_stack.frames)
 
     def b():
         a()

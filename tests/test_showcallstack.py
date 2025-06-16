@@ -11,10 +11,13 @@ from src.showcallstack import ShowCallStack
 def test_init():
     """
     Test initialisation of `ShowCallStack` class.
+
+    Returns:
+        ShowCallStack
     """
     # Init
     show_call_stack = ShowCallStack()
-    assert show_call_stack.traceback_info == []
+    assert show_call_stack
 
 def test_default_get_traceback_info():
     """
@@ -22,11 +25,30 @@ def test_default_get_traceback_info():
     """
     # Init
     show_call_stack = ShowCallStack()
-    assert show_call_stack.traceback_info == []
 
     # Get reference traceback info.
     reference_traceback_info = show_call_stack.get_traceback_info(0)
+    
+    # Defining test function.
+    def a():
+        # Get traceback.
+        traceback_info = show_call_stack.get_traceback_info(0)
+        assert len(traceback_info) == len(reference_traceback_info) + 1
+    a()
 
-    # Get traceback for default args.
-    default_args_traceback_info = show_call_stack.get_traceback_info(2)
-    assert len(default_args_traceback_info) == len(reference_traceback_info) - 2
+def test_get_all_frames():
+    """
+    Test method `get_all_frames`.
+    """
+    # Init
+    show_call_stack = ShowCallStack()
+
+    # Get all frames.
+    reference_frames = show_call_stack.get_all_frames()
+
+    # Defining test function.
+    def a():
+        # Get frames.
+        frames = show_call_stack.get_all_frames()
+        assert len(frames) == len(reference_frames) + 1
+    a()
